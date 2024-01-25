@@ -1,0 +1,36 @@
+<div>
+    <h1 class="text-lg font-semibold text-center my-10">Factures</h1>
+    <div class="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-6">
+        <div>
+            <div class="h-[300px] w-full p-5 text-white bg-cover relative flex cursor-pointer rounded-xl" style="background-image: url('assets/facture1.webp');">
+                <div class="flex flex-col items-center justify-center rounded-xl bg-neutral-900/70 h-full w-full transition-all duration-500 opacity-0 hover:opacity-100" (click)="goToFacture()">
+                    <h2 class="text-3xl font-semibold m-4">Facture 1</h2>
+                    <h3 class="text-lg font-medium uppercase">Client 1</h3>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="h-[300px] w-full p-5 text-white bg-cover relative flex cursor-pointer rounded-xl" style="background-image: url('assets/facture1.webp');">
+                <div class="flex flex-col items-center justify-center rounded-xl bg-neutral-900/70 h-full w-full transition-all duration-500 opacity-0 hover:opacity-100" (click)="goToFacture()">
+                    <h2 class="text-3xl font-semibold m-4">Facture 2</h2>
+                    <h3 class="text-lg font-medium uppercase">Client 2</h3>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="h-[300px] w-full p-5 text-white bg-cover relative flex cursor-pointer rounded-xl" style="background-image: url('assets/facture1.webp');">
+                <div class="flex flex-col items-center justify-center rounded-xl bg-neutral-900/70 h-full w-full transition-all duration-500 opacity-0 hover:opacity-100" (click)="goToFacture()">
+                    <h2 class="text-3xl font-semibold m-4">Facture 3</h2>
+                    <h3 class="text-lg font-medium uppercase">Client 3</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div *ngFor="let client of clients">
+    <div>{{client.name}} {{client.prenom}} {{client.age}}</div>
+</div>

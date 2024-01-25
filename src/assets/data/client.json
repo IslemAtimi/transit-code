@@ -1,0 +1,48 @@
+ [
+        {
+            "id": 1,
+            "numero_facture": 1073790,
+            "name": "SARL CONAGRAAL",
+            "adresse":"196 RUE Mustapha MEGHNOUCHE BIRKHADEM",
+            "nature":"THEE VERT",
+            "date": "2020-01-01",
+            "origine":"CHINE"
+        },
+        {
+            "id": 2,
+            "numero_facture": 1073791,
+            "name": "EURL",
+            "adresse":"22 RUE MUSTAPHA CLIMAT DE FRANCE OUED KORIACHE",
+            "nature":"SMARTPHONE",
+            "date": "2023-01-01",
+            "origine":"FRANCE"
+        },
+        {
+            "id": 3,
+            "numero_facture": 1073792,
+            "name": "ELITE",
+            "adresse":"22 RUE MUSTAPHA CLIMAT DE FRANCE OUED BAB EL OUED",
+            "nature":"CAFE VERT",
+            "date": "2022-05-01",
+            "origine":"TUNISIE"
+        },
+        {
+            "id": 4,
+            "numero_facture": 1073793,
+            "name": "SONALGAZ",
+            "adresse":"22 RUE MUSTAPHA CLIMAT DE FRANCE OUED KORIACHE",
+            "nature":"CAFE NOIR",
+            "date": "2021-01-01",
+            "origine":"ALGERIE"
+        },
+        {
+            "id": 5,
+            "numero_facture": 1073794,
+            "name": "SONATRACH",
+            "adresse":"24 RUE Mustapha MEGHNOUCHE LES SOURCES",
+            "nature":"TV SMART",
+            "date": "2022-12-01",
+            "origine":"MAROC"
+        }
+    ]
+    

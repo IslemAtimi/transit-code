@@ -1,0 +1,87 @@
+<div class="flex w-full print">
+    <button class=" text-lg  text-center my-10 mx-auto w-24 border-gray-500 border text-white  bg-yellow-300 rounded hover:text-yellow-300 hover:bg-white transition-all duration-200" (click)="imprimer()" >Print</button>
+</div>
+<div class="max-w-3xl mx-auto p-6 bg-white rounded shadow-sm my-6" id="invoice">
+
+    <div class="grid grid-cols-6 items-center">
+            
+      <div class="text-left col-span-3">
+        <p class="font-semibold pb-3">
+          {{champsTitleValue["Name"]}}
+        </p>
+        <p class="text-gray-500 text-sm">
+          {{champsTitleValue["Adresse"]}}
+        </p>
+        <p class="text-gray-500 text-sm mt-1">
+          {{champsTitleValue["Tel/Fax"]}}
+        </p>
+        <p class="text-gray-500 text-sm mt-1">
+          <span class="text-black  ">RCN :</span>{{champsTitleValue["RCN"]}} <span class="text-black  "> / NIF :</span>  {{champsTitleValue["NIF"]}}
+        </p>
+      </div>
+      <div class="col-span-2 h-full">
+        <p class="text-gray-500 text-sm pb-10">
+          Date : {{champDate}}
+        </p>
+        <p class="text-gray-500 text-sm">
+          <span class="text-black  ">Declaration:</span> {{champsTitleValue["Declaration"]}}
+        </p>
+        
+      </div>
+      <div class="col-span-1">
+        <!--  Company logo  -->
+        <img class="ml-auto" src="assets/elite-logo.png" alt="company-logo" height="100" width="100">
+      </div>
+
+
+    </div>
+  
+
+  <h3 class="text-3xl text-center font-semibold mt-6  underline"   >{{name}}</h3>
+    <!-- Invoice Items -->
+    <div class="-mx-4 mt-5 flow-root sm:mx-0">
+      <table class="min-w-full">
+        <colgroup>
+          <col class="w-full sm:w-1/2">
+          <col class="sm:w-1/6">
+          <col class="sm:w-1/6">
+          <col class="sm:w-1/6">
+        </colgroup>
+        <thead class="border-b border-gray-300 text-gray-900">
+          <tr>
+            <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Items</th>
+            <th scope="col" class="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell">Quantity</th>
+            <th scope="col" class="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell">Price</th>
+            <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let champ of champs">
+          <tr class="border-b border-gray-200">
+            <td class="max-w-0 py-2 pl-4 pr-3 text-sm sm:pl-0">
+              <div class="font-medium text-gray-900">{{champ}}</div>
+            </td>
+            <td class="hidden px-3 py-2 text-right text-sm text-gray-500 sm:table-cell">{{champBonsQnt[champ]||1}}</td>
+            <td class="hidden px-3 py-2 text-right text-sm text-gray-500 sm:table-cell">{{champBonsPrice[champ]||0}}</td>
+            <td *ngIf="champBonsPrice[champ]!=0" class="py-2 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">{{(champBonsPrice[champ]||0)*(champBonsQnt[champ]||1)}} DA</td>
+            <td *ngIf="champBonsPrice[champ]==0" class="py-2 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">--</td>
+          </tr>
+        </ng-container>
+        </tbody>
+        <tfoot>
+  
+          <tr>
+            <th scope="row" colspan="3" class="hidden pl-4 pr-3 pt-4 text-right text-sm font-semibold text-gray-900 sm:table-cell sm:pl-0">Total</th>
+            <th scope="row" class="pl-6 pr-3 pt-4 text-left text-sm font-semibold text-gray-900 sm:hidden">Total</th>
+            <td class="pl-3 pr-4 pt-4 text-right text-3xl font-semibold text-gray-900 sm:pr-0 whitespace-no-wrap h-8">{{total}}&nbsp;DA</td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  
+    <!--  Footer  -->
+    <div class="border-t-2 pt-4 text-xs text-gray-500 text-center mt-16">
+      Please pay the invoice before the due date. You can pay the invoice by logging in to your account from our client portal.
+    </div>
+  
+  </div>
