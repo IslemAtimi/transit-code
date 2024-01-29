@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { inject } from '@angular/core';
-import { initializeApp } from '@angular/fire/app';
+
 import { Firestore, deleteDoc, doc,limit,orderBy,startAfter , getDoc, getDocs, addDoc, setDoc, collection, query, getFirestore, DocumentData, documentId, where, Timestamp, and, or } from '@angular/fire/firestore';
-import { convertToParamMap } from '@angular/router';
-import { Observable, Subject } from 'rxjs';
-import { firebaseConfig } from 'src/environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +41,7 @@ export class ClientService {
     const object: any[] = [];
     var id:any=0;
     if((filterNumero!=undefined)&&(filterDate!=undefined)){
-      var queryRef = query(collection(this.firestore, 'client'),or( where("dateCreation", ">=", new Date(filterDate)),where(documentId(), ">=", filterNumero) ));
+      var queryRef = query(collection(this.firestore, 'client'), where("dateCreation", ">=", new Date(filterDate)),where(documentId(), ">=", filterNumero));
 
     }
     else if(filterNumero!=undefined)var queryRef = query(collection(this.firestore, 'client'),orderBy(documentId()), where(documentId(), ">=", filterNumero));
@@ -70,14 +67,22 @@ export class ClientService {
     return object;
   }
 
-  async readBonsPaged(startAfterDoc: number,maxResult:number): Promise<any[]> {
+  async readBonsPaged(startAfterDoc: number,maxResult:number,filterNumber?:string,filterDate?:string): Promise<any[]> {
     const object: any[] = [];
     var id:any=0;
-    var queryRef = query(collection(this.firestore, 'bons'),orderBy(documentId()),startAfter(startAfterDoc+''), limit(maxResult));
+    if((filterNumber!=undefined)&&(filterDate!=undefined)){
+      var queryRef = query(collection(this.firestore, 'bons'), where("date", ">=", new Date(filterDate)),where(documentId(), ">=", filterNumber));
+
+    }
+    else if(filterNumber!=undefined)var queryRef = query(collection(this.firestore, 'bons'),orderBy(documentId()), where(documentId(), ">=", filterNumber));
+    else if(filterDate!=undefined)var queryRef = query(collection(this.firestore, 'bons'),orderBy("date"), where("date", ">=", new Date(filterDate)));
+    else var queryRef = query(collection(this.firestore, 'bons'),orderBy(documentId()),startAfter(startAfterDoc+''), limit(maxResult));
+    
     var querySnapshot = await getDocs(queryRef)
     
      querySnapshot.docs.map((robots) => {
        id=robots.id
+
        object.push(robots.data())
      })
      object.push(id)

@@ -73,6 +73,22 @@ export class CreateClientComponent implements OnInit {
     this.newChamp=""
   }
 
+  deleteChamp(champ:string,type:string): void {
+if(type=='client'){
+  this.champsClient.splice(this.champsClient.indexOf(champ),1)
+  delete this.champsClientValue[champ]
+}
+else if(type=='title'){
+  this.champsTitle.splice(this.champsTitle.indexOf(champ),1)
+  delete this.champsTitleValue[champ]
+}
+else{
+  this.champsFacture.splice(this.champsFacture.indexOf(champ),1)
+  delete this.champsClientValueFacture[champ]
+}
+
+
+  }
 
   nextStep(){
     this.step++;

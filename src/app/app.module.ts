@@ -24,6 +24,7 @@ import { CaisseComponent } from './caisse/caisse.component';
 import { BonsComponent } from './bons/bons.component';
 import { BonsListComponent } from './bons-list/bons-list.component';
 import { BonsViewComponent } from './bons-view/bons-view.component';
+import { DatePipe } from '@angular/common';
 // import { AngularFireModule } from '@angular/fire';
 // import { AngularFirestoreModule } from '@angular/fire/firestore';
 
@@ -60,7 +61,7 @@ import { BonsViewComponent } from './bons-view/bons-view.component';
   
 
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

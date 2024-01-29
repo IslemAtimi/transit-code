@@ -1,5 +1,23 @@
 <section class="container px-4 mx-auto">
-    
+    <div *ngIf="filterFlag" class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-3">
+        <div>
+        <label class="text-gray-700 dark:text-gray-200" for="username">Filtre par N°</label>
+        <input [(ngModel)]="filterNumber" type="text" placeholder="Saisir le Numero de Bons a Rechercher..." class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">    
+        </div>
+        <div>
+        <label class="text-gray-700 dark:text-gray-200" for="username">Filtre par Date</label>
+        <input [(ngModel)]="filterDate" type="Date" placeholder="Saisir le nom du Bons" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">     
+        </div>
+        <div class="flex flex-col gap-y-1">
+          <button (click)="filter()"  class=" text-center w-24 h-8  disabled:bg-gray-300 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Filtre</button>
+          <button (click)="Reset()"  class=" text-center w-24 h-8  disabled:bg-gray-300 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Reset/Close</button>
+  
+        </div>
+        
+    </div>
+    <ng-container *ngIf="!filterFlag" >
+        <button (click)="filterFlag=true"  style="color: #003566;" class=" text-center w-48 h-8  transition-colors duration-300 transform  hover:text-blue-600  ">Ouvrir le filtre --></button>
+    </ng-container>
     <div class="flex flex-col mt-6">
         <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -7,7 +25,7 @@
                     <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                         <thead class="bg-gray-50 dark:bg-gray-800">
                             <tr>
-                                <th scope="col" class="px-3 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <th scope="col" class="px-3 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
                                     Bons N°
                                 </th>
                                 <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -31,7 +49,7 @@
                         <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
                            <ng-container *ngFor="let bon of Bons">
                             <tr>
-                                <td class="px-3 py-4 text-sm font-normal text-gray-700 whitespace-nowrap">
+                                <td class="px-3 py-4 text-sm text-center font-normal text-gray-700 whitespace-nowrap">
                                     {{bon.id}}
                                 </td>
 
@@ -76,7 +94,7 @@
         </div>
     </div>
 
-    <div class="flex items-center justify-center mt-6">
+    <div *ngIf="!filterFlag" class="flex items-center justify-center mt-6">
         <a (click)="previousStep()" class="text-center cursor-pointer w-24 px-2 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
             <span>
                << previous

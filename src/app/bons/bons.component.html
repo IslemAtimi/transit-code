@@ -9,13 +9,13 @@
             <label class="text-gray-700 dark:text-gray-200" for="username">Date</label>
             <input [(ngModel)]="champDate" type="date"  placeholder="Date" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">    
         </div>
-        <div>
-            <label class="text-gray-700 dark:text-gray-200" for="username">Name</label>
-            <input [(ngModel)]="name" type="text" placeholder="Saisir le nom du Bons" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">    
-        </div>
+
         
         <div *ngFor="let champ of champs">
-            <label class="text-gray-700 dark:text-gray-200" for="username">{{champ}}</label>
+          <div class="flex justify-between">
+            <label class="text-gray-700 dark:text-gray-200" for="">{{champ}} </label>
+            <span (click)="deleteChamp(champ)" class="cursor-pointer mr-3 transition-all duration-200 text-gray-600 bg-gray-200 rounded-full hover:bg-gray-500 text-base px-2 font-semibold font-sans ">X</span>
+          </div>
             <input [(ngModel)]="champBonsQnt[champ]" type="text" placeholder="Quantite" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
             <input [(ngModel)]="champBonsPrice[champ]" type="text" placeholder="Prix" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
         </div>

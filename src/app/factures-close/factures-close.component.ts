@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClientService } from '../services/client.service';
 import { Router } from '@angular/router';
 import { Timestamp } from '@angular/fire/firestore';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-factures-close',
@@ -11,7 +12,8 @@ import { Timestamp } from '@angular/fire/firestore';
 export class FacturesCloseComponent implements OnInit {
 
   constructor(private route: Router,
-private clientService: ClientService
+private clientService: ClientService,
+private datePipe: DatePipe
       ) { }
 
   clients: any[] = [];
@@ -38,7 +40,7 @@ private clientService: ClientService
       this.skip[this.page]=(parseInt(this.clients.pop()))
       
       this.clients.forEach((client)=>{
-        client.dateCreation=new Date(client.dateCreation.seconds*1000)
+        client.dateCreation=this.formatDate(client.dateCreation)
       })
     })
   }
@@ -81,11 +83,19 @@ this.clientService.readClientsPaged(0,50,this.filterNumber,this.filterDate).then
   this.clients.pop()//supprimer le dernier element car c lui de last id
 
   this.clients.forEach((client)=>{
-    client.dateCreation=new Date(client.dateCreation.seconds*1000)
+    client.dateCreation=this.formatDate(client.dateCreation)
   })
 })
 
 
+}
+
+formatDate(date: any): string {
+  const dateObject = new Date(date.seconds * 1000);
+
+  // Utilisez DatePipe pour formater la date
+  const formattedDate = this.datePipe.transform(dateObject, 'dd-MM-yyyy');
+  return formattedDate || '';
 }
 
 }

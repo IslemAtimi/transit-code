@@ -20,9 +20,8 @@ constructor(private service:ClientService,private route:Router) { }
   step:number=0
   newChamp:string=""
   total:number=0
-  name:string=""
 
-  champDate?:Date;
+  champDate?:string;
 
   addChamp(){
 this.champs.push(this.newChamp)
@@ -47,6 +46,15 @@ this.newChamp=""
     }
   }
 }
+
+deleteChamp(champ:string): void {
+ 
+    this.champs.splice(this.champs.indexOf(champ),1)
+    delete this.champBonsPrice[champ]
+    delete this.champBonsQnt[champ]
+  
+    }
+
   
   stock(){
     var objectData:Record<string,number[]>={}
@@ -54,8 +62,7 @@ this.newChamp=""
       objectData[champ]=[this.champBonsQnt[champ]||0,this.champBonsPrice[champ]||0]
     })
     var objectSend={
-      date:this.champDate,
-      name:this.name,
+      date:new Date(this.champDate||""),
       data:objectData,
       total:this.total,
       selected:true
@@ -96,5 +103,6 @@ this.newChamp=""
   
     return result
   }
+
 
 }
