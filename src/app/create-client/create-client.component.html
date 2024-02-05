@@ -1,289 +1,119 @@
-<div>
-
-    <div class="w-1/2 mx-auto mt-7 mb-4">
-      <div class="overflow-hidden rounded-full bg-gray-200">
-        <div class="h-2 {{width}} transition-all duration-500 rounded-full bg-blue-500"></div>
-      </div>
-  
-      <ol class="mt-4 grid grid-cols-4 text-sm font-medium text-gray-500">
-        <li class="flex items-center justify-start {{color[0]}} sm:gap-1.5">
-          <span class="hidden sm:inline">Entete</span>
-  
-          <svg
-            class="h-6 w-6 sm:h-5 sm:w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
-            />
-          </svg>
-        </li>
-  
-        <li class="flex items-center justify-center {{color[1]}} sm:gap-1.5">
-          <span class="hidden sm:inline">Client</span>
-  
-          <svg
-            class="h-6 w-6 sm:h-5 sm:w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
-            />
-          </svg>
-        </li>
-  
-        <li class="flex items-center justify-end {{color[2]}} sm:gap-1.5">
-          <span class="hidden sm:inline">Commandes</span>
-  
-          <svg
-            class="h-6 w-6 sm:h-5 sm:w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
-            />
-          </svg>
-        </li>
-
-        <li class="flex items-center justify-end {{color[3]}} sm:gap-1.5">
-          <span class="hidden sm:inline">Facture final</span>
-  
-          <svg
-            class="h-6 w-6 sm:h-5 sm:w-5"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            stroke-width="2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
-            />
-          </svg>
-        </li>
-      </ol>
-    </div>
-  </div>
-
-<section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-  <ng-container *ngIf="step==0">
-    <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">Create L'entete de facture</h2>
-
-    
-        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-            
-            <ng-container *ngFor="let champ of champsTitle">
-                <div>
-                  <div class="flex justify-between">
-                    <label class="text-gray-700 dark:text-gray-200" for="">{{champ}} </label>
-                    <span (click)="deleteChamp(champ,'title')" class="cursor-pointer mr-3 transition-all duration-200 text-gray-600 bg-gray-200 rounded-full hover:bg-gray-500 text-base px-2 font-semibold font-sans ">X</span>
-                  </div>
-                    <input  [(ngModel)]="champsTitleValue[champ]" required id="" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-                  </div>
-            </ng-container>
-           
+<section class="container px-4 mx-auto">
+    <div *ngIf="filterFlag" class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-3">
+        <div>
+        <label class="text-gray-700 dark:text-gray-200" for="username">Filtre par N°</label>
+        <input [(ngModel)]="filterNic" type="text" placeholder="Saisir le Numero de Bons a Rechercher..." class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">    
         </div>
-
+        <div>
+        <label class="text-gray-700 dark:text-gray-200" for="username">Filtre par Date</label>
+        <input [(ngModel)]="filterName" type="Date" placeholder="Saisir le nom du Bons" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">     
+        </div>
+        <div class="flex flex-col gap-y-1">
+          <button (click)="filter()"  class=" text-center w-24 h-8  disabled:bg-gray-300 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Filtre</button>
+          <button (click)="Reset()"  class=" text-center w-24 h-8  disabled:bg-gray-300 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Reset/Close</button>
+  
+        </div>
         
-        <div class="flex justify-between mt-10">
-            <div class="flex w-3/4">
-                <input [(ngModel)]="newChamp" type="text" class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-                <button [disabled]="newChamp==''" (click)="addChamp()" class="px-5 mx-2  text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">Ajouter un champ</button>
-            </div>
-
-            <button (click)="nextStep()" class="px-8   text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Save</button>
-        </div>
-    </ng-container>
-
-    <ng-container *ngIf="step==1">
-    <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">Create L'entete de facture</h2>
-
-    
-        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-            
-            <ng-container *ngFor="let champ of champsClient">
-                <div>
-                    <div class="flex justify-between">
-                      <label class="text-gray-700 dark:text-gray-200" for="">{{champ}} </label>
-                      <span (click)="deleteChamp(champ,'client')" class="cursor-pointer mr-3 transition-all duration-200 text-gray-600 bg-gray-200 rounded-full hover:bg-gray-500 text-base px-2 font-semibold font-sans ">X</span>
-                    </div>
-                    <input *ngIf="champ!='FactureNumber'" [(ngModel)]="champsClientValue[champ]" id="" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-                    <input *ngIf="champ=='FactureNumber'" [(ngModel)]="factureNumber" id="" type="number" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-                  </div>
-            </ng-container>
-           
-        </div>
-
-        
-        <div class="flex justify-between mt-10">
-            <div class="flex w-3/4">
-                <input [(ngModel)]="newChamp" type="text" class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-                <button [disabled]="newChamp==''" (click)="addChamp()" class="px-5 mx-2  text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">Ajouter un champ</button>
-            </div>
-            <button (click)="previousStep()" class="px-2  mx-3 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">précédent</button>
-
-            <button (click)="nextStep()" class="px-8   text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Save</button>
-        </div>
-    </ng-container>
-
-
-
-
-    <ng-container *ngIf="step==2">
-        <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">Create facture</h2>
-
-    
-        <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-            <div *ngFor="let champ of champsFacture">
-              <div class="flex justify-between">
-                <label class="text-gray-700 dark:text-gray-200" for="">{{champ}} </label>
-                <span (click)="deleteChamp(champ,'facture')" class="cursor-pointer mr-3 transition-all duration-200 text-gray-600 bg-gray-200 rounded-full hover:bg-gray-500 text-base px-2 font-semibold font-sans ">X</span>
-              </div>
-                <input [(ngModel)]="champsClientValueFacture[champ]" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-            </div>
-
-
-           
-        </div>
-        <div class="flex justify-between mt-10">
-            <div class="flex w-3/4">
-                <input [(ngModel)]="newChamp" type="text" placeholder="Saisir votre champ" class="block w-full px-4 py-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-                <button [disabled]="newChamp==''" (click)="addChampFacture()" class="px-5 mx-2  text-white transition-colors duration-300 transform bg-blue-400 rounded-md disabled:bg-gray-300   hover:bg-blue-300 focus:outline-none whitespace-nowrap">Ajouter un champ</button>
-            </div>
-            <button (click)="previousStep()" class="px-2  mx-3 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">précédent</button>
-
-            <button (click)="nextStep()" class="px-8   text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Save</button>
-        </div>
-    </ng-container>
-
-    <ng-container *ngIf="step==3">
-
-      <div class="flex justify-between mt-5 h-10">
-        
-        <button  (click)="previousStep()" class="px-5 mx-2  text-white transition-colors duration-300 transform bg-gray-400 rounded-md  hover:bg-gray-300 focus:outline-none whitespace-nowrap">précédent</button>
-        
-
-        <button (click)="stock()" class="px-8   text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Stocker</button>
     </div>
 
-
-      <div class="max-w-3xl mx-auto p-6 bg-white rounded shadow-sm my-6" id="invoice">
-
-        <div class="grid grid-cols-6 items-center">
-                
-          <div class="text-left col-span-3">
-            <p class="font-semibold pb-3">
-              {{champsTitleValue["Name"]}}
-            </p>
-            <p class="text-gray-500 text-sm">
-              {{champsTitleValue["Adresse"]}}
-            </p>
-            <p class="text-gray-500 text-sm mt-1">
-              {{champsTitleValue["Tel/Fax"]}}
-            </p>
-            <p class="text-gray-500 text-sm mt-1">
-              <span class="text-black  ">RCN :</span>{{champsTitleValue["RCN"]}} <span class="text-black  "> / NIF :</span>  {{champsTitleValue["NIF"]}}
-            </p>
-          </div>
-          <div class="col-span-2 h-full">
-            <p class="text-gray-500 text-sm pb-10">
-              {{champsTitleValue["Date"]}}
-            </p>
-            <p class="text-gray-500 text-sm">
-              <span class="text-black  ">Declaration:</span> {{champsTitleValue["Declaration"]}}
-            </p>
-            <p class="text-gray-500 text-sm">
-              <span class="text-black  ">Nombre de Colis:</span> {{champsClientValue["Nombre_Colis"]}}
-            </p>
-          </div>
-          <div class="col-span-1">
-            <!--  Company logo  -->
-            <img class="ml-auto" src="assets/elite-logo.png" alt="company-logo" height="100" width="100">
-          </div>
-
-
-        </div>
-      
-        <!-- Client info -->
-        <div class=" mt-12">
-          <div>
-            <ng-container *ngFor="let champ of champsClient">
-             <p *ngIf="champ!='FactureNumber' && champ!='Nombre_Colis'"  class="text-gray-500">{{champ}} : <span class="text-black"> {{champsClientValue[champ]}}</span></p>
-             <p *ngIf="champ=='FactureNumber'"  class="text-gray-500">{{champ}} : <span class="text-black">REV N° {{champsClientValue[champ]}} </span></p> 
-            </ng-container>
-          </div>
-          
-        </div>
-      
-        <!-- Invoice Items -->
-        <div class="-mx-4 mt-8 flow-root sm:mx-0">
-          <table class="min-w-full">
-            <colgroup>
-              <col class="w-full sm:w-1/2">
-              <col class="sm:w-1/6">
-              <col class="sm:w-1/6">
-              <col class="sm:w-1/6">
-            </colgroup>
-            <thead class="border-b border-gray-300 text-gray-900">
-              <tr>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Items</th>
-                <th scope="col" class="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell">Quantity</th>
-                <th scope="col" class="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell">Price</th>
-                <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">Amount</th>
-              </tr>
-            </thead>
-            <tbody>
-            <ng-container *ngFor="let champ of champsFacture">
-              <tr class="border-b border-gray-200">
-                <td class="max-w-0 py-2 pl-4 pr-3 text-sm sm:pl-0">
-                  <div class="font-medium text-gray-900">{{champ}}</div>
-                </td>
-                <td class="hidden px-3 py-2 text-right text-sm text-gray-500 sm:table-cell">--</td>
-                <td class="hidden px-3 py-2 text-right text-sm text-gray-500 sm:table-cell">--</td>
-                <td *ngIf="champsClientValueFacture[champ]!=0" class="py-2 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">{{champsClientValueFacture[champ]}} DA</td>
-                <td *ngIf="champsClientValueFacture[champ]==0" class="py-2 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">--</td>
-              </tr>
-            </ng-container>
-            </tbody>
-            <tfoot>
-         
-              <tr>
-                <th scope="row" colspan="3" class="hidden pl-4 pr-3 pt-4 text-right text-sm font-semibold text-gray-900 sm:table-cell sm:pl-0">NET A PAYER</th>
-                <th scope="row" class="pl-6 pr-3 pt-4 text-left text-sm font-semibold text-gray-900 sm:hidden">NET A PAYER</th>
-                <td class="pl-3 pr-4 pt-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">{{NetPayer}}&nbsp;DA</td>
-              </tr>
-            </tfoot>
-          </table>
-        </div>
-      
-        <!--  Footer  -->
-        <div class="border-t-2 pt-4 text-xs text-gray-500 text-center mt-16">
-          Please pay the invoice before the due date. You can pay the invoice by logging in to your account from our client portal.
-        </div>
-      
-      </div>
-      
-
+    <ng-container *ngIf="!filterFlag" >
+        <div class="flex justify-between w-full">
+        <button (click)="filterFlag=true"  style="color: #003566;" class=" text-center w-48 h-8  transition-colors duration-300 transform  hover:text-blue-600  ">Ouvrir le filtre --></button>
+        <button (click)="add()"  class="addClient text-center w-32 h-8 mt-5 text-white transition-colors duration-300 transform  rounded-md focus:outline-none">Ajouter Client</button>
+        </div> 
     </ng-container>
+    
 
+    <div class="flex flex-col mt-6">
+        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
+            <div class="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+                <div class="overflow-hidden border border-gray-200 dark:border-gray-700 md:rounded-lg">
+                    <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead class="bg-gray-50 dark:bg-gray-800">
+                            <tr>
+                                <th scope="col" class="px-3 py-3.5 text-sm font-normal text-center rtl:text-right text-gray-500 dark:text-gray-400">
+                                    Client N°
+                                </th>
+                                <th scope="col" class="py-3.5 px-4 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <div class="flex items-center gap-x-3">
+                                        <span>Nom du Client</span>
+                                    </div>
+                                </th>
+                                
+                                <th scope="col" class="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    Date
+                                </th>
+                                <th scope="col" class="px-3 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    NIC
+                                </th>
+
+                                <th scope="col" class="relative py-3.5 px-4">
+                                    <span class="sr-only">Edit</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200 dark:divide-gray-700 dark:bg-gray-900">
+                           <ng-container *ngFor="let client of clients">
+                            <tr>
+                                <td class="px-3 py-4 text-sm text-center font-normal text-gray-700 whitespace-nowrap">
+                                    {{client.id}}
+                                </td>
+
+                                <td class="px-4 py-4 text-sm font-medium text-gray-700 w-96 truncate">
+                                    
+
+                                        <div class="flex items-center gap-x-2  w-96 truncate">
+                                            <div>
+                                                <h2 class="font-normal text-gray-800 dark:text-white truncate">{{client.Name}}</h2>
+                                            </div>
+                                        </div>
+                                   
+                                </td>
+                                
+                                <td  class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{client.Adresse }}</td>
+
+                                <td  class="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{{client.NIC }}</td>
+
+                                <td class="px-4 py-4 text-sm whitespace-nowrap">
+                                    <button 
+                                    (click)="goToClients(client.id)"
+                                    class="px-4 py-2 font-medium text-gray-600 transition-colors duration-200 sm:px-6 dark:hover:bg-gray-800 dark:text-gray-300 hover:text-blue-400">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 sm:w-6 sm:h-6">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 3.75H6A2.25 2.25 0 003.75 6v1.5M16.5 3.75H18A2.25 2.25 0 0120.25 6v1.5m0 9V18A2.25 2.25 0 0118 20.25h-1.5m-9 0H6A2.25 2.25 0 013.75 18v-1.5M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </button>
+                                    <button 
+                                    (click)="deleteClients(client.id)"
+                                    class="px-4 py-2 text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                                        </svg>
+                                    </button>
+                                </td>
+                            </tr>
+                            </ng-container>
+                           
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!filterFlag" class="flex items-center justify-center mt-6">
+        <a (click)="previousStep()" class="text-center cursor-pointer w-24 px-2 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+            <span>
+               << previous
+            </span>
+        </a>
+
+        <div class="text-center w-24 px-2 py-1 text-lg text-gray-700 capitalize transition-colors duration-200 bg-white  rounded-md gap-x-2  dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+            {{page}}</div>
+        
+        <a (click)="nextStep()" class="text-center cursor-pointer w-24 px-2 py-2 text-sm text-gray-700 capitalize transition-colors duration-200 bg-white border rounded-md gap-x-2 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800">
+            <span>
+                Next >>
+            </span>
+        </a>
+    </div>
 </section>

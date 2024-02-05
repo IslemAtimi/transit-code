@@ -3,6 +3,7 @@ import { ClientService } from '../services/client.service';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
 
+
 @Component({
   selector: 'app-bons-list',
   templateUrl: './bons-list.component.html',

@@ -19,12 +19,16 @@ import { FacturesCloseComponent } from './factures-close/factures-close.componen
 import { initializeApp, getApp,provideFirebaseApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { firebaseConfig } from 'src/environments/environment';
-import { CreateClientComponent } from './create-client/create-client.component';
+import { CreateFactureComponent } from './create-facture/create-client.component';
 import { CaisseComponent } from './caisse/caisse.component';
 import { BonsComponent } from './bons/bons.component';
 import { BonsListComponent } from './bons-list/bons-list.component';
 import { BonsViewComponent } from './bons-view/bons-view.component';
 import { DatePipe } from '@angular/common';
+import { CreateClientComponent } from './create-client/create-client.component';
+import { AddClientPopUpComponent } from './add-client-pop-up/add-client-pop-up.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // import { AngularFireModule } from '@angular/fire';
 // import { AngularFirestoreModule } from '@angular/fire/firestore';
 
@@ -38,19 +42,23 @@ import { DatePipe } from '@angular/common';
     FactureViewComponent,
     FacturesComponent,
     FacturesCloseComponent,
-    CreateClientComponent,
+    CreateFactureComponent,
     CaisseComponent,
     BonsComponent,
     BonsListComponent,
     BonsViewComponent,
+    CreateClientComponent,
+    AddClientPopUpComponent
     
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     MatIconModule,
     HttpClientModule,
     MatButtonModule,
+    MatDialogModule,
     FormsModule,
     provideFirebaseApp(() => initializeApp(firebaseConfig)),
     provideFirestore(() => getFirestore()),

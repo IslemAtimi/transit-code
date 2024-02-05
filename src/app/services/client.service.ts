@@ -11,17 +11,33 @@ export class ClientService {
 
   constructor(public firestore: Firestore) { }
 
+  //reelement c un client de facture et une facture
   async createClient(client: any, facture: any, entete: any): Promise<any> {
     client['dateCreation'] = new Date();
     this.getCaisseData().then((data) => {
       setDoc(doc(this.firestore, "client", (data.lastFactureId + 1).toString()), client);//create client
       setDoc(doc(this.firestore, "facture", (data.lastFactureId + 1).toString()), facture);//create facture
-      setDoc(doc(this.firestore, "entete", "1"), entete);//create entete
+      setDoc(doc(this.firestore, "entete", "1"), entete);//ecraser l'entete
       setDoc(doc(this.firestore, "general", "1"), {... data ,  caisse: data.caisse + parseInt(client["NetPayer"]), lastFactureId: data.lastFactureId + 1, numberFacture: data.numberFacture + 1 })//update factureId
       return true
     }).catch((error) => {
       confirm("la facture na pas ete cree il peut quelle existe deja")
 
+      return false
+    })
+    return true
+
+  }
+
+  //reelement c un client 
+  async createUser(user: User): Promise<any> {
+    this.getCaisseData().then((data) => {
+      setDoc(doc(this.firestore, "user", (data.lastClientId + 1).toString()), user);//create client (user dans la table)
+      setDoc(doc(this.firestore, "general", "1"), {... data , lastClientId: data.lastClientId + 1, numberClient: data.numberClient + 1 })//update factureId
+      return true
+    }).catch((error) => {
+      confirm("le client na pas ete cree il peut quelle existe deja")
+      console.log(error)
       return false
     })
     return true
@@ -77,6 +93,28 @@ export class ClientService {
     else if(filterNumber!=undefined)var queryRef = query(collection(this.firestore, 'bons'),orderBy(documentId()), where(documentId(), ">=", filterNumber));
     else if(filterDate!=undefined)var queryRef = query(collection(this.firestore, 'bons'),orderBy("date"), where("date", ">=", new Date(filterDate)));
     else var queryRef = query(collection(this.firestore, 'bons'),orderBy(documentId()),startAfter(startAfterDoc+''), limit(maxResult));
+    
+    var querySnapshot = await getDocs(queryRef)
+    
+     querySnapshot.docs.map((robots) => {
+       id=robots.id
+
+       object.push(robots.data())
+     })
+     object.push(id)
+    return object;
+  }
+
+  async readUsersPaged(startAfterDoc: number,maxResult:number,filterNumber?:string,filterName?:string): Promise<any[]> {
+    const object: any[] = [];
+    var id:any=0;
+    if((filterNumber!=undefined)&&(filterName!=undefined)){
+      var queryRef = query(collection(this.firestore, 'user'), where("Name", "==", filterName),where(documentId(), ">=", filterNumber));
+
+    }
+    else if(filterNumber!=undefined)var queryRef = query(collection(this.firestore, 'user'),orderBy(documentId()), where(documentId(), ">=", filterNumber));
+    else if(filterName!=undefined)var queryRef = query(collection(this.firestore, 'user'),orderBy("date"), where("Name", "==", filterName));
+    else var queryRef = query(collection(this.firestore, 'user'),orderBy(documentId()),startAfter(startAfterDoc+''), limit(maxResult));
     
     var querySnapshot = await getDocs(queryRef)
     
@@ -178,15 +216,16 @@ export interface general {
   caisse: number,
   lastFactureId: number,
   lastBonsId: number,
+  lastClientId: number,
   numberFacture: number,
-  numberBons: number
+  numberBons: number,
+  numberClient:number
 }
 
-// export interface client{
-//   Name:string,
-//   FactureN:string,
-//   FactureId:number,
-//   Adresse:string,
-//   Origine:string,
-//   Nature_de_Marchandise:string
-// }
+export interface User{
+  id:number,
+  Name:string,
+  Adresse:string,
+  NIC:string,
+  Nature_de_Marchandise:string
+}

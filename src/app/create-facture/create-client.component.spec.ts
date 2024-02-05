@@ -11,7 +11,9 @@ describe('CreateClientComponent', () => {
       declarations: [ CreateClientComponent ]
     })
     .compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(CreateClientComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

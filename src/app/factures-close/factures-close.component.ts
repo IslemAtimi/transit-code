@@ -86,8 +86,6 @@ this.clientService.readClientsPaged(0,50,this.filterNumber,this.filterDate).then
     client.dateCreation=this.formatDate(client.dateCreation)
   })
 })
-
-
 }
 
 formatDate(date: any): string {
