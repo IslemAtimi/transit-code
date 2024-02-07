@@ -30,21 +30,26 @@
         <span class="text-black  ">Nombre de Colis:</span> {{champsClientValue["Nombre_Colis"]}}
       </p>
     </div>
-    <div class="col-span-1">
-      <!--  Company logo  -->
-      <img class="ml-auto" src="assets/elite-logo.png" alt="company-logo" height="100" width="100">
-    </div>
 
 
   </div>
 
   <!-- Client info -->
-  <div class=" mt-12">
-    <div>
+  <div class=" mt-12 flex flex-col sm:flex-row">
+    <div class="sm:w-1/2">
       <ng-container *ngFor="let champ of listeTriees(champsClient)">
-       <p *ngIf="champ!='dateCreation' && champ!='Nombre_Colis' && champ!='NetPayer' && champ!='NetPayer'" class="text-gray-500">{{champ}} : <span class="text-black"> {{champsClientValue[champ]}}</span></p> 
+       <p *ngIf="champ!='dateCreation' && champ!='Nombre_Colis' && champ!='selected' &&
+        champ!='NetPayer'  && champ!='NIF' && champ!='N RC' && champ!='AI' && champ!='NIC'"
+         class="text-gray-500">{{champ}} : <span class="text-black"> {{champsClientValue[champ]}}</span></p> 
        
       </ng-container>
+    </div>
+    <div class="sm:w-1/2">
+      <ng-container *ngFor="let champ of listeTriees(champsClient)">
+        <p *ngIf=" champ=='Nombre_Colis' || champ=='NIF' || champ=='N RC' || champ=='AI' || champ=='NIC'"
+          class="text-gray-500">{{champ}} : <span class="text-black"> {{champsClientValue[champ]}}</span></p> 
+        
+       </ng-container>
     </div>
     
   </div>
@@ -62,8 +67,8 @@
         <tr>
           <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Designation</th>
           <th scope="col" class="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell"></th>
-          <th scope="col" class="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell"></th>
-          <th scope="col" class="py-3.5 text-center text-sm font-semibold text-gray-900 sm:pr-0">Montant</th>
+          <th scope="col" class="px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell">Prestation</th>
+          <th scope="col" class="py-3.5 text-center text-sm font-semibold text-gray-900 sm:pr-0">Debour</th>
         </tr>
       </thead>
       <tbody>
@@ -72,19 +77,27 @@
           <td class="max-w-0 py-2 pl-4 pr-3 text-sm sm:pl-0">
             <div class="font-medium text-gray-900">{{champ}}</div>
           </td>
+        <ng-container *ngIf="typeItem[champ]=='P'">
           <td class="hidden px-3 py-2 text-right text-sm text-gray-500 sm:table-cell"></td>
+          <td *ngIf="champsClientValueFacture[champ]!='' && champsClientValueFacture[champ]!='0'" class="px-3 py-2 text-right text-sm text-gray-500 sm:table-cell">{{champsClientValueFacture[champ]}} DA</td>
+          <td *ngIf="champsClientValueFacture[champ]=='' || champsClientValueFacture[champ]=='0'" class="px-3 py-2 text-right text-sm text-gray-500 sm:table-cell">--</td>
+          <td class="py-2 text-center text-sm text-gray-500 sm:pr-0">--</td>
+        </ng-container>
+        <ng-container *ngIf="typeItem[champ]=='D'">
           <td class="hidden px-3 py-2 text-right text-sm text-gray-500 sm:table-cell"></td>
-          <td *ngIf="champsClientValueFacture[champ]!=''" class="py-2 text-center text-sm text-gray-500 sm:pr-0">{{champsClientValueFacture[champ]}} DA</td>
-          <td *ngIf="champsClientValueFacture[champ]==''" class="py-2 text-center text-sm text-gray-500 sm:pr-0">--</td>
+          <td class="px-3 py-2 text-right text-sm text-gray-500 sm:table-cell">--</td>
+          <td *ngIf="champsClientValueFacture[champ]!=''&& champsClientValueFacture[champ]!='0'" class="py-2 text-center text-sm text-gray-500 sm:pr-0">{{champsClientValueFacture[champ]}} DA</td>
+          <td *ngIf="champsClientValueFacture[champ]==''|| champsClientValueFacture[champ]=='0'" class="py-2 text-center text-sm text-gray-500 sm:pr-0">--</td>
+        </ng-container>
         </tr>
       </ng-container>
       </tbody>
       <tfoot>
     
         <tr>
-          <th scope="row" colspan="3" class="hidden pl-4 pr-3 pt-4 text-right text-sm font-semibold text-gray-900 sm:table-cell sm:pl-0">NET A PAYER</th>
-          <th scope="row" class="pl-6 pr-3 pt-4 text-left text-sm font-semibold text-gray-900 sm:hidden">NET A PAYER</th>
-          <td class="pl-3 text-center text-sm font-semibold text-gray-900 sm:pr-0">{{NetPayer}}&nbsp;DA</td>
+          <th scope="row" colspan="3" class="hidden pl-4 pr-3 pt-10 text-right text-sm font-semibold text-gray-900 sm:table-cell sm:pl-0">NET A PAYER</th>
+          <th scope="row" class="pl-6 pr-3 pt-10 text-left text-sm font-semibold text-gray-900 sm:hidden">NET A PAYER</th>
+          <td class="pl-3 pt-10 text-center text-xl font-semibold text-gray-900 sm:pr-0">{{NetPayer}}&nbsp;DA</td>
         </tr>
       </tfoot>
     </table>

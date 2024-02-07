@@ -20,7 +20,7 @@ private datePipe: DatePipe
   page:number=1
   total:number=0
   skip:number[]=[0]
-  maxResultCount:number=3
+  maxResultCount:number=8
 
   filterNumber?:string;
   filterDate?:string;
@@ -50,6 +50,7 @@ private datePipe: DatePipe
   }
 
   deleteFacture(id:string,somme:number){
+    if(confirm("voulez vous vraiment supprimer cette Facture")){
     this.clientService.deleteFacture(id,somme).then((data)=>{
       alert("la facture a ete supprimer avec succes")
       this.skip=[0];
@@ -57,6 +58,7 @@ private datePipe: DatePipe
       this.getClientsPaged(this.skip[this.page-1],this.maxResultCount)
       
     })
+  }
   }
 
 

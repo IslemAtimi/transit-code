@@ -10,10 +10,10 @@ import { Router } from '@angular/router';
 })
 export class CreateFactureComponent implements OnInit {
 
-  champsTitle:string[]=["Name","Date","Adresse","Tel/Fax","Declaration","RCN","NIF"]
+  champsTitle:string[]=["Name","Date","Adresse","Tel/Fax","Declaration","RCN","NIF","AI","NIC"]
   champsTitleValue:Record<string,string>={}
 
-  champsClient:string[]=["Name","Adresse","FactureNumber","Origine","Nature de Marchandise","Nombre_Colis"]
+  champsClient:string[]=["Name","Adresse","FactureNumber","NIC","NRC","NIF","AI","Origine","Nature de Marchandise","Nombre_Colis"]
   champsClientValue:Record<string,string>={}
   newChamp:string=""
   factureNumber:number=0
@@ -32,8 +32,9 @@ export class CreateFactureComponent implements OnInit {
     "Frais douanes",
     "Honoraires"	
     ]
-  champsClientValueFacture:Record<string,number>={}
+  champsClientValueFacture:Record<string,string>={}
   newChampFacture:string=""
+  typeItem:Record<string,string>={}
 
   width:string="w-2"
   color:string[]=["text-blue-600","","",""]
@@ -41,6 +42,11 @@ export class CreateFactureComponent implements OnInit {
 
   Total:number = 0
   NetPayer:number = 0
+  // for autoComplete
+  keyword = 'name';
+  data:any[] = [];
+  USERS:any[]=[]
+
 
   constructor(private route: Router,
     private service:ClientService
@@ -54,12 +60,45 @@ export class CreateFactureComponent implements OnInit {
     })
 
     this.champsFacture.forEach((champ)=>{
-      this.champsClientValueFacture[champ]=0
+      this.champsClientValueFacture[champ]='0'
+      this.typeItem[champ]="D"
     })
+
+    this.getClients();
     
   }
 
   
+  getClients(){
+    this.service.readUsersPaged(0,100).then((clients)=>{
+      var id=clients.pop()
+      this.USERS=[...clients]
+      console.log(clients)
+      clients.forEach((client)=>{
+        this.data.push({name:client.Name,id:client.id})
+      })
+    })
+  }
+  onScroll(){
+    
+  }
+  selectEvent(user:any) {
+    var clientSelected=this.USERS.find(c=>c.id==user['id'])   
+    console.log(clientSelected)
+    this.champsClientValue["Name"]=clientSelected.Name
+    this.champsClientValue["Adresse"]=clientSelected.Adresse
+    this.champsClientValue["NRC"]=clientSelected.NRC
+    this.champsClientValue["NIF"]=clientSelected.NIF
+    this.champsClientValue["AI"]=clientSelected.AI
+    this.champsClientValue["NIC"]=clientSelected.NIC
+  }
+
+  onChangeSearch(val: string) {
+    // fetch remote data from here
+    // And reassign the 'data' which is binded to 'data' property.
+  }
+  
+  // ------------------------------------------------------------------------------
  
   addChamp(): void {
     this.champsClient.push(this.newChamp)
@@ -69,7 +108,7 @@ export class CreateFactureComponent implements OnInit {
  
   addChampFacture(){
     this.champsFacture.push(this.newChamp)
-    this.champsClientValueFacture[this.newChamp]=0
+    this.champsClientValueFacture[this.newChamp]='0'
     this.newChamp=""
   }
 
@@ -88,6 +127,13 @@ else{
 }
 
 
+  }
+
+  change(id:string){
+    if(this.typeItem[id]=="D")
+    this.typeItem[id]="P"
+    else
+    this.typeItem[id]="D"
   }
 
   nextStep(){
@@ -152,6 +198,8 @@ else{
       this.champsTitleValue["Declaration"]="6659 du 26/11/2023"
       this.champsTitleValue["RCN"]="23A5057013"
       this.champsTitleValue["NIF"]="16947040036019011600"
+      this.champsTitleValue["AI"]="1212551"
+      this.champsTitleValue["NIC"]="54641321"
       this.factureNumber=(data.lastFactureId+1)//initialise par la valeur id correspandante
 
     })
@@ -162,12 +210,15 @@ else{
     this.champsClientValue["FactureNumber"]=this.factureNumber+''
     this.champsClientValue["NetPayer"]=this.NetPayer+''
     this.champsClientValue["selected"]='true'
+    this.champsFacture.forEach((champ)=>{
+      if(this.typeItem[champ]=='P')this.champsClientValueFacture[champ]=this.champsClientValueFacture[champ]+'£'
+    })
     //to do sil existe une facture de meme id
     this.service.createClient(this.champsClientValue,this.champsClientValueFacture,this.champsTitleValue).then((data)=>{console.log(data)
       if(data==true){
-        if (confirm("la facture a ete cree avec succes") == true) {
+        
           this.route.navigate(['/facture-view',{ data: this.champsClientValue["FactureNumber"] }]);
-        }
+        
       }
       else{
         confirm("la facture na pas ete cree il peut quelle existe deja")

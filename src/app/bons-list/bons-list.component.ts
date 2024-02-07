@@ -46,7 +46,7 @@ getBons(skip:number,max:number){
  
 
 deleteBons(id:string,somme:number) {
-  
+  if(confirm("voulez vous vraiment supprimer ce Bons")){
   this.service.deleteBon(id,somme).then((data)=>{
     confirm("le Bons est bien supprimer")
     this.skip=[0];
@@ -54,7 +54,7 @@ deleteBons(id:string,somme:number) {
     this.getBons(this.skip[this.page-1],this.maxResultCount)
   }).catch((error)=>{
     console.log(error)
-  })
+  })}
 }
 goToBons(id:string) {
   this.route.navigate(['/bon-view',{ data: id }]);

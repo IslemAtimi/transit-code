@@ -29,6 +29,7 @@ import { CreateClientComponent } from './create-client/create-client.component';
 import { AddClientPopUpComponent } from './add-client-pop-up/add-client-pop-up.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AutocompleteLibModule} from 'angular-ng-autocomplete';
 // import { AngularFireModule } from '@angular/fire';
 // import { AngularFirestoreModule } from '@angular/fire/firestore';
 
@@ -57,6 +58,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     MatIconModule,
     HttpClientModule,
+    AutocompleteLibModule,
     MatButtonModule,
     MatDialogModule,
     FormsModule,

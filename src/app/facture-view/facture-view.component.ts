@@ -14,6 +14,8 @@ champsClientValue:Record<string,string>={}
 champsClientValueFacture:Record<string,string>={}
 champsClient:string[]=[]
   champsFacture:string[]=[]
+
+  typeItem:Record<string,string>={}
   constructor(
     private route:ActivatedRoute,
     private client:ClientService
@@ -21,14 +23,24 @@ champsClient:string[]=[]
 
   ngOnInit(): void {
     var id = this.route.snapshot.params['data'];
+    
     this.getFacture(id)
+    
   }
 async getFacture(id:string){
-  await this.client.readClient(id).then((data)=>{
-    this.extraireClesEtValeurs(data.client,"client")
-    this.extraireClesEtValeurs(data.facture,"facture")
-    this.extraireClesEtValeurs(data.entete,"entete")
+  //  location.reload();
+
+  await this.client.readClient(id,"client").then((data)=>{
+    console.log(data)
+    
+    this.extraireClesEtValeurs(data,"client")
+  })
+  await this.client.readClient(id,"facture").then((data)=>{
+    this.extraireClesEtValeurs(data,"facture")
     this.getTotal()
+  })
+  await this.client.readClient("1","entete").then((data)=>{
+    this.extraireClesEtValeurs(data,"entete")
   })
 }
   imprimer(){
@@ -51,7 +63,18 @@ async getFacture(id:string){
   if(type=="facture"){
     for (const [cle, valeur] of Object.entries(data)) {
       this.champsFacture.push(cle)
-      this.champsClientValueFacture[cle]=valeur
+      if(valeur.includes("£"))//pour dire prestation
+      {
+        this.champsClientValueFacture[cle]=valeur.replace("£","")
+        this.typeItem[cle]="P"
+      }
+      else{
+        this.champsClientValueFacture[cle]=valeur
+        this.typeItem[cle]="D"
+      }
+      
+      
+      
     }
   }
   else{

@@ -1,4 +1,4 @@
-<div>
+<div class="h-3/4">
 
     <div class="w-1/2 mx-auto mt-7 mb-4">
       <div class="overflow-hidden rounded-full bg-gray-200">
@@ -85,7 +85,7 @@
     </div>
   </div>
 
-<section class="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
+<section class="max-w-4xl mb-28 p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
   <ng-container *ngIf="step==0">
     <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">Create L'entete de facture</h2>
 
@@ -118,6 +118,26 @@
     <ng-container *ngIf="step==1">
     <h2 class="text-lg mb-5 font-semibold text-gray-700 capitalize dark:text-white">Create L'entete de facture</h2>
 
+    <div class="ng-autocomplete w-3/4 mx-auto md:w-1/2">
+      <ng-autocomplete 
+        [data]="data"
+        [searchKeyword]="keyword"
+        placeholder="Select Client"
+        (selected)='selectEvent($event)'
+        (inputChanged)='onChangeSearch($event)'
+        [itemTemplate]="itemTemplate"
+        (scrolledToEnd)="onScroll()"
+        [notFoundTemplate]="notFoundTemplate">                                 
+      </ng-autocomplete>
+      
+      <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+      </ng-template>
+      
+      <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="notFound"></div>
+      </ng-template>
+      </div>
     
         <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             
@@ -129,7 +149,8 @@
                     </div>
                     <input *ngIf="champ!='FactureNumber'" [(ngModel)]="champsClientValue[champ]" id="" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
                     <input *ngIf="champ=='FactureNumber'" [(ngModel)]="factureNumber" id="" type="number" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
-                  </div>
+                </div>
+
             </ng-container>
            
         </div>
@@ -157,7 +178,12 @@
             <div *ngFor="let champ of champsFacture">
               <div class="flex justify-between">
                 <label class="text-gray-700 dark:text-gray-200" for="">{{champ}} </label>
+                <div>
+                <span *ngIf="typeItem[champ]=='P'" (click)="change(champ)" class="text-white cursor-pointer mr-3 transition-all duration-400 text-gray-600 bg-yellow-200 rounded-full hover:bg-yellow-500 text-base px-2 font-semibold font-sans ">{{typeItem[champ]}}</span>
+                <span *ngIf="typeItem[champ]=='D'" (click)="change(champ)" class="text-white cursor-pointer mr-3 transition-all duration-200 text-gray-600 bg-blue-500 rounded-full hover:bg-blue-700 text-base px-2 font-semibold font-sans ">{{typeItem[champ]}}</span>
                 <span (click)="deleteChamp(champ,'facture')" class="cursor-pointer mr-3 transition-all duration-200 text-gray-600 bg-gray-200 rounded-full hover:bg-gray-500 text-base px-2 font-semibold font-sans ">X</span>
+              
+                </div>  
               </div>
                 <input [(ngModel)]="champsClientValueFacture[champ]" type="text" class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring">
             </div>
@@ -216,10 +242,7 @@
               <span class="text-black  ">Nombre de Colis:</span> {{champsClientValue["Nombre_Colis"]}}
             </p>
           </div>
-          <div class="col-span-1">
-            <!--  Company logo  -->
-            <img class="ml-auto" src="assets/elite-logo.png" alt="company-logo" height="100" width="100">
-          </div>
+       
 
 
         </div>
@@ -229,7 +252,7 @@
           <div>
             <ng-container *ngFor="let champ of champsClient">
              <p *ngIf="champ!='FactureNumber' && champ!='Nombre_Colis'"  class="text-gray-500">{{champ}} : <span class="text-black"> {{champsClientValue[champ]}}</span></p>
-             <p *ngIf="champ=='FactureNumber'"  class="text-gray-500">{{champ}} : <span class="text-black">REV N° {{champsClientValue[champ]}} </span></p> 
+             <p *ngIf="champ=='FactureNumber'"  class="text-gray-500">{{champ}} : <span class="text-black"> {{champsClientValue[champ]}} </span></p> 
             </ng-container>
           </div>
           
@@ -239,17 +262,15 @@
         <div class="-mx-4 mt-8 flow-root sm:mx-0">
           <table class="min-w-full">
             <colgroup>
-              <col class="w-full sm:w-1/2">
-              <col class="sm:w-1/6">
-              <col class="sm:w-1/6">
-              <col class="sm:w-1/6">
+              <col class="w-full sm:w-3/4">
+              <col class="sm:w-full mr-3">
+              <col class="sm:w-full ml-3">
             </colgroup>
             <thead class="border-b border-gray-300 text-gray-900">
               <tr>
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-0">Items</th>
-                <th scope="col" class="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell">Quantity</th>
-                <th scope="col" class="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell">Price</th>
-                <th scope="col" class="py-3.5 pl-3 pr-4 text-right text-sm font-semibold text-gray-900 sm:pr-0">Amount</th>
+                <th scope="col" class="hidden px-3 py-3.5 text-right text-sm font-semibold text-gray-900 sm:table-cell">Prestation</th>
+                <th scope="col" class="py-3.5 pl-6 pr-0  text-right text-sm font-semibold text-gray-900 ">Debour</th>
               </tr>
             </thead>
             <tbody>
@@ -258,11 +279,17 @@
                 <td class="max-w-0 py-2 pl-4 pr-3 text-sm sm:pl-0">
                   <div class="font-medium text-gray-900">{{champ}}</div>
                 </td>
-                <td class="hidden px-3 py-2 text-right text-sm text-gray-500 sm:table-cell">--</td>
-                <td class="hidden px-3 py-2 text-right text-sm text-gray-500 sm:table-cell">--</td>
-                <td *ngIf="champsClientValueFacture[champ]!=0" class="py-2 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">{{champsClientValueFacture[champ]}} DA</td>
-                <td *ngIf="champsClientValueFacture[champ]==0" class="py-2 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">--</td>
-              </tr>
+                <ng-container *ngIf="typeItem[champ]=='P'">
+                  <td *ngIf="champsClientValueFacture[champ]!='0'" class="py-2 pl-1 pr-0  text-right text-sm text-gray-500 sm:pr-5">{{champsClientValueFacture[champ]}} DA</td>
+                  <td *ngIf="champsClientValueFacture[champ]=='0'" class="py-2 pl-1 pr-0  text-right text-sm text-gray-500 sm:pr-5">--</td>
+                  <td  class="py-2 pl-1 pr-0  text-right text-sm text-gray-500 sm:pr-0">--</td>
+                </ng-container>
+                <ng-container *ngIf="typeItem[champ]=='D'">
+                  <td  class="py-2 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-5">--</td>
+                  <td *ngIf="champsClientValueFacture[champ]!='0'" class="py-2 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">{{champsClientValueFacture[champ]}} DA</td>
+                  <td *ngIf="champsClientValueFacture[champ]=='0'" class="py-2 pl-3 pr-4 text-right text-sm text-gray-500 sm:pr-0">--</td>
+                  </ng-container>
+            </tr>
             </ng-container>
             </tbody>
             <tfoot>

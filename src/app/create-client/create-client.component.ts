@@ -41,7 +41,18 @@ export class CreateClientComponent implements OnInit{
     this.openDialogPart();
   }
   goToClients(id:number){}
-  deleteClients(id:number){}
+  deleteClients(id:number){
+
+    if(confirm("voulez vous vraiment supprimer ce Client")){
+      this.clientService.deleteUser(id).then((data)=>{
+        alert("la facture a ete supprimer avec succes")
+        this.skip=[0];
+        this.page=1;
+        this.getUsers(this.skip[this.page-1],this.maxResultCount)
+        
+      })
+    }
+  }
 
 
   getUsers(skip:number,max:number){

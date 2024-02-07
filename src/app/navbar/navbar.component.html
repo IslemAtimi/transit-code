@@ -1,5 +1,40 @@
 <nav class="relative bg-violet-900 rounded mx-3">
-  
+  <div class="md:hidden">
+    <button (click)="mobile()" class="h-10">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke-width="1.5"
+        stroke="currentColor"
+        class="h-8 w-8"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+        />
+      </svg>
+    </button>
+    <div *ngIf="desktopMenuOpen" class="absolute top-10 left-0 z-10 p-6 rounded bg-blue-700 flex flex-col gap-3  ">
+      <a
+        class="font-light text-white transition-all duration-500 hover:text-blue-600 "
+        href="index.html"
+        >Home</a
+      >
+      <a
+        class="cursor-pointer font-light text-white transition-all duration-500 hover:text-blue-600 "
+        
+        (click)="goToFactures()"
+        >Factures</a
+      >
+      <a
+        class="cursor-pointer font-light text-white transition-all duration-500 hover:text-blue-600 "
+        (click)="goToBons()"
+        >Bons</a
+      >
+    </div>
+  </div>
   
     <div
       class="mx-auto hidden h-12 w-full max-w-[1200px] items-center md:flex"
@@ -22,11 +57,6 @@
           class="cursor-pointer font-light text-white transition-all duration-300 hover:text-blue-400 "
           (click)="goToBons()"
           >Bons</a
-        >
-        <a
-          class="font-light text-white transition-all duration-300 hover:text-blue-400 "
-          href="contact-us.html"
-          >Contact Us</a
         >
       </div>
 

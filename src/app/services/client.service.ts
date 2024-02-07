@@ -15,8 +15,8 @@ export class ClientService {
   async createClient(client: any, facture: any, entete: any): Promise<any> {
     client['dateCreation'] = new Date();
     this.getCaisseData().then((data) => {
-      setDoc(doc(this.firestore, "client", (data.lastFactureId + 1).toString()), client);//create client
       setDoc(doc(this.firestore, "facture", (data.lastFactureId + 1).toString()), facture);//create facture
+      setDoc(doc(this.firestore, "client", (data.lastFactureId + 1).toString()), client);//create client
       setDoc(doc(this.firestore, "entete", "1"), entete);//ecraser l'entete
       setDoc(doc(this.firestore, "general", "1"), {... data ,  caisse: data.caisse + parseInt(client["NetPayer"]), lastFactureId: data.lastFactureId + 1, numberFacture: data.numberFacture + 1 })//update factureId
       return true
@@ -127,19 +127,27 @@ export class ClientService {
     return object;
   }
 
-  async readClient(id: string): Promise<{client:any, facture:any, entete:any}> {
-    var clientRef = doc(this.firestore, "client", id);
-    const client = await getDoc(clientRef)
-    var clientData = await client.data();
-
-    var factureRef = doc(this.firestore, "facture", id);
+  async readClient(id: string,type:string): Promise<any> {
+    if(type=="facture"){
+    var factureRef =await doc(this.firestore, "facture", id);
     var facture = await getDoc(factureRef) 
     var factureData = await facture.data();
-
-    var enteteRef = doc(this.firestore, "entete", "1");
+    return factureData;
+    }
+    if(type=="client"){
+      var clientRef =await doc(this.firestore, "client", id);
+    var client = await getDoc(clientRef)
+    var clientData = await client.data();
+    return clientData;
+    }
+    if(type=="entete"){
+    var enteteRef =await doc(this.firestore, "entete", "1");
     var entete = await getDoc(enteteRef) 
     var enteteData = await entete.data();
-    return { client: clientData, facture: factureData, entete: enteteData }
+    return enteteData;
+    }
+  
+    // return { client: clientData, facture: factureData, entete: enteteData }
 
   }
   async deleteFacture(id: string, somme: number): Promise<any> {
@@ -148,6 +156,18 @@ export class ClientService {
       await deleteDoc(doc(this.firestore, "facture", id));
       this.getCaisseData().then((data) => {
         setDoc(doc(this.firestore, "general", "1"), {...data, caisse: data.caisse - somme, lastFactureId: data.lastFactureId, numberFacture: data.numberFacture - 1 })
+      })
+
+    } catch (error) {
+      return false
+    }
+    return true
+  }
+  async deleteUser(id: number): Promise<any> {
+    try {
+      await deleteDoc(doc(this.firestore, "user", id.toString()));
+      this.getCaisseData().then((data) => {
+        setDoc(doc(this.firestore, "general", "1"), {...data, numberClient: data.numberClient - 1 })
       })
 
     } catch (error) {
@@ -179,7 +199,7 @@ export class ClientService {
   }
 
   async getCaisseData(): Promise<general> {
-    const docRef = doc(this.firestore, "general", "1");
+    const docRef =await doc(this.firestore, "general", "1");
     const docSnap = await getDoc(docRef)
     return docSnap.data() as general
   }
@@ -227,5 +247,7 @@ export interface User{
   Name:string,
   Adresse:string,
   NIC:string,
-  Nature_de_Marchandise:string
+  NRC:string,
+  NIF:string,
+  AI:string,
 }

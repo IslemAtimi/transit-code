@@ -16,15 +16,16 @@ export class BonsViewComponent implements OnInit {
   name:string=""
   champBonsQnt:Record<string,number>={}
   champBonsPrice:Record<string,number>={}
+  id:string=""
   
   constructor(
     private route:ActivatedRoute,
     private service:ClientService
   ) { }
   ngOnInit(): void {
-    var id = this.route.snapshot.params['data'];
+    this.id = this.route.snapshot.params['data'];
     this.getTitleValue()
-    this.getBon(id)
+    this.getBon(this.id)
   }
 
   getTitleValue(){

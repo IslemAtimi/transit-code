@@ -20,9 +20,11 @@ mobile(){
   console.log(this.desktopMenuOpen)
 }
   goToFactures(){
+    this.desktopMenuOpen=false
     this.route.navigate(['/facture-close']);
   }
   goToBons(){
+    this.desktopMenuOpen=false
     this.route.navigate(['/bonsList']);
   }
 }

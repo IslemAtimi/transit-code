@@ -15,7 +15,7 @@ export class AddClientPopUpComponent implements OnInit{
   public dialogRef: MatDialogRef<AddClientPopUpComponent>,) { }
 
 
-  champsClient:string[]=["Name","Adresse","NIC","Nature de Marchandise"]
+  champsClient:string[]=["Nom de client","Adresse","NIC","N RC","NIF" , "AI"];
   champsClientValue:Record<string,string>={}
   id:number=0
 
@@ -33,10 +33,12 @@ export class AddClientPopUpComponent implements OnInit{
   Create(){
     const client:User={
       id: this.id,
-      Name: this.champsClientValue["Name"],
+      Name: this.champsClientValue["Nom de client"],
       Adresse: this.champsClientValue["Adresse"],
       NIC: this.champsClientValue["NIC"],
-      Nature_de_Marchandise: this.champsClientValue["Nature de Marchandise"]
+      NRC: this.champsClientValue["N RC"],
+      NIF: this.champsClientValue["NIF"],
+      AI: this.champsClientValue["AI"],
     }
     this.clientService.createUser(client).then(()=>{
       alert("client ajouter avec succes")

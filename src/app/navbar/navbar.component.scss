@@ -2,27 +2,17 @@ nav{
     background-color: #003566;
 }
 button{
-    background-color: #ffd60a;
+    // background-color: #ffd60a;
     color:white;
     transition: background-color 0.2s ease-in-out;
 
 }
 button:hover{
-    background-color: #ffc300;
+    color: #ffc300;
 
 }
 
-@media  (max-width: 300px) {
+@media  (max-width: 600px) {
     
-     button{
-        background-color: white;
-        color:black;
-        transition: background-color 0.2s ease-in-out;
-    
-    }
-    button:hover{
-        background-color: black;
-        color: white;
-    
-    }
+
 }
