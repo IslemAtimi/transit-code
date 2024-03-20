@@ -73,7 +73,6 @@ export class CreateFactureComponent implements OnInit {
     this.service.readUsersPaged(0,100).then((clients)=>{
       var id=clients.pop()
       this.USERS=[...clients]
-      console.log(clients)
       clients.forEach((client)=>{
         this.data.push({name:client.Name,id:client.id})
       })
@@ -84,7 +83,6 @@ export class CreateFactureComponent implements OnInit {
   }
   selectEvent(user:any) {
     var clientSelected=this.USERS.find(c=>c.id==user['id'])   
-    console.log(clientSelected)
     this.champsClientValue["Name"]=clientSelected.Name
     this.champsClientValue["Adresse"]=clientSelected.Adresse
     this.champsClientValue["NRC"]=clientSelected.NRC
@@ -214,7 +212,7 @@ else{
       if(this.typeItem[champ]=='P')this.champsClientValueFacture[champ]=this.champsClientValueFacture[champ]+'£'
     })
     //to do sil existe une facture de meme id
-    this.service.createClient(this.champsClientValue,this.champsClientValueFacture,this.champsTitleValue).then((data)=>{console.log(data)
+    this.service.createClient(this.champsClientValue,this.champsClientValueFacture,this.champsTitleValue).then((data)=>{
       if(data==true){
         
           this.route.navigate(['/facture-view',{ data: this.champsClientValue["FactureNumber"] }]);

@@ -27,19 +27,17 @@ champsClient:string[]=[]
     this.getFacture(id)
     
   }
-async getFacture(id:string){
+ getFacture(id:string){
   //  location.reload();
 
-  await this.client.readClient(id,"client").then((data)=>{
-    console.log(data)
-    
+   this.client.readClient(id,"client").then((data)=>{
     this.extraireClesEtValeurs(data,"client")
   })
-  await this.client.readClient(id,"facture").then((data)=>{
+   this.client.readClient(id,"facture").then((data)=>{
     this.extraireClesEtValeurs(data,"facture")
     this.getTotal()
   })
-  await this.client.readClient("1","entete").then((data)=>{
+   this.client.readClient("1","entete").then((data)=>{
     this.extraireClesEtValeurs(data,"entete")
   })
 }

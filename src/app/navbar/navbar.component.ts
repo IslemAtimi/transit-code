@@ -17,7 +17,6 @@ export class NavbarComponent implements OnInit {
   }
 mobile(){
   this.desktopMenuOpen= this.desktopMenuOpen?false:true
-  console.log(this.desktopMenuOpen)
 }
   goToFactures(){
     this.desktopMenuOpen=false

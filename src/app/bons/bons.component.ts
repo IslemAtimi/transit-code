@@ -35,7 +35,6 @@ this.newChamp=""
   }
 
   nextStep(){
-    console.log(this.champDate)
     if(this.checkFactureChiffres()){
     this.step++
     if(this.step==1){

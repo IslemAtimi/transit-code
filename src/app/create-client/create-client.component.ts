@@ -18,7 +18,7 @@ export class CreateClientComponent implements OnInit{
   page:number=1;
   total:number=0
   skip:number[]=[0]
-  maxResultCount:number=2
+  maxResultCount:number=10
   constructor(private route: Router
     ,private clientService: ClientService,
     public dialog: MatDialog,
@@ -31,7 +31,16 @@ export class CreateClientComponent implements OnInit{
     })
   }
 
-  filter(){}
+  filter(number?:string,name?:string){
+    if(number=="")number=undefined
+    if(name=="")name=undefined
+    console.log(number,name)
+    this.clientService.readUsersPaged(0,50,number,name).then((data)=>{
+      this.skip[this.page]=(parseInt(data.pop()))
+      this.clients=data
+      
+    })
+  }
   Reset(){
     this.filterFlag=false
   this.filterName=""

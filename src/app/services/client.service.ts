@@ -12,9 +12,9 @@ export class ClientService {
   constructor(public firestore: Firestore) { }
 
   //reelement c un client de facture et une facture
-  async createClient(client: any, facture: any, entete: any): Promise<any> {
+   createClient(client: any, facture: any, entete: any): Promise<any> {
     client['dateCreation'] = new Date();
-    this.getCaisseData().then((data) => {
+    return this.getCaisseData().then((data) => {
       setDoc(doc(this.firestore, "facture", (data.lastFactureId + 1).toString()), facture);//create facture
       setDoc(doc(this.firestore, "client", (data.lastFactureId + 1).toString()), client);//create client
       setDoc(doc(this.firestore, "entete", "1"), entete);//ecraser l'entete
@@ -25,7 +25,7 @@ export class ClientService {
 
       return false
     })
-    return true
+
 
   }
 
@@ -113,7 +113,7 @@ export class ClientService {
 
     }
     else if(filterNumber!=undefined)var queryRef = query(collection(this.firestore, 'user'),orderBy(documentId()), where(documentId(), ">=", filterNumber));
-    else if(filterName!=undefined)var queryRef = query(collection(this.firestore, 'user'),orderBy("date"), where("Name", "==", filterName));
+    else if(filterName!=undefined)var queryRef = query(collection(this.firestore, 'user'),orderBy("Name"), where("Name", ">=", filterName),where("Name", "<=", filterName + '\uf8ff'));
     else var queryRef = query(collection(this.firestore, 'user'),orderBy(documentId()),startAfter(startAfterDoc+''), limit(maxResult));
     
     var querySnapshot = await getDocs(queryRef)
@@ -177,8 +177,7 @@ export class ClientService {
   }
  async deleteBon(id:string, somme:number){
   try {
-    console.log(id)
-    console.log(typeof(id))
+
     await deleteDoc(doc(this.firestore, "bons", id+''));
     this.getCaisseData().then((data) => {
       setDoc(doc(this.firestore, "general", "1"), {...data, caisse: data.caisse + somme, numberBons: data.numberBons - 1 })
@@ -191,7 +190,6 @@ export class ClientService {
   }
 
   async readBon(id: string): Promise<{bon:any}>{
-    console.log(id)
     var bonsRef = doc(this.firestore, "bons", id);
     const bons = await getDoc(bonsRef)
     var bonsData = await bons.data();

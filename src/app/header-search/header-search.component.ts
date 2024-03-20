@@ -16,7 +16,6 @@ export class HeaderSearchComponent implements OnInit {
   }
   mobile(){
     this.desktopMenuOpen= this.desktopMenuOpen?false:true
-    console.log(this.desktopMenuOpen)
   }
     goToFactures(){
       this.route.navigate(['/facture-close']);

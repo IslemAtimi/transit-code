@@ -94,7 +94,6 @@ nextStep(){
 
     // Utilisez DatePipe pour formater la date
     const formattedDate = this.datePipe.transform(dateObject, 'dd-MM-yyyy');
-    console.log(formattedDate)
     return formattedDate || '';
   }
 }
